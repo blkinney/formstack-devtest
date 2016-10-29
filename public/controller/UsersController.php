@@ -28,6 +28,7 @@ class UsersController
     public function redirect($location)
     {
         header('Location: '.$location);
+        exit();
     }
 
     /**
@@ -80,7 +81,6 @@ class UsersController
     */
     public function addUser()
     {
-        $title = 'Add new user';
 
         $fname = '';
         $lname = '';
@@ -142,8 +142,6 @@ class UsersController
         }
 
         $user = $this->userFunctions->getUser($id);
-
-        $title = 'Update user';
 
         $fname = $user->fname;
         $lname = $user->lname;
