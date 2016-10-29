@@ -1,8 +1,16 @@
 <?php
 
-class UserFunctions {
-
-    private function openDb() {
+class UserFunctions
+{
+   /**
+   * Opens the connection to the database and makes sure the table is there.
+   *
+   * @param  none
+   * @return conection to database
+   * @throws Exception if connection to database fails
+   */
+    private function openDb()
+    {
         if (!$connection = mysqli_connect('localhost', 'root', 'root', 'scotchbox')) {
             throw new Exception("Connection to the database server failed!");
         } else {
@@ -17,26 +25,47 @@ class UserFunctions {
         }
     }
 
-    private function closeDb($connection) {
+    /**
+    * Closes the connection to the database
+    *
+    * @param  object $connection
+    * @return void
+    * @throws none
+    */
+    private function closeDb($connection)
+    {
         mysqli_close($connection);
     }
 
-    public function getUsers() {
+    public function getUsers()
+    {
         try {
             $connection = $this->openDb();
+
             $dbresult = $connection->query("SELECT * FROM users");
+
             $users = array();
             while ( ($obj = mysqli_fetch_object($dbresult)) != NULL ) {
                 $users[] = $obj;
             }
+
             $this->closeDb($connection);
+
             return $users;
         } catch (Exception $e) {
             throw $e;
         }
     }
 
-    public function getUser($id) {
+    /**
+    * Queries the database for a user based on id
+    *
+    * @param  int $id
+    * @return object of user
+    * @throws Exception if the user cannot be found
+    */
+    public function getUser($id)
+    {
         try {
             $connection = $this->openDb();
             $dbId = $connection->real_escape_string($id);
@@ -44,14 +73,24 @@ class UserFunctions {
             $dbresult = $connection->query("SELECT * FROM users WHERE id=$dbId");
 
             $result = mysqli_fetch_object($dbresult);
+
             $this->closeDb($connection);
+
             return $result;
         } catch (Exception $e) {
             throw $e;
         }
     }
 
-    public function createNewUser( $fname, $lname, $email, $password ) {
+    /**
+    * Creates a new user in the database
+    *
+    * @param  string $fname, string $lname, string $email, string $password
+    * @return query result
+    * @throws Exception if the user cannot be created
+    */
+    public function createNewUser($fname, $lname, $email, $password)
+    {
         try {
             $connection = $this->openDb();
             $dbFname = ($fname != NULL)?"'".$connection->real_escape_string($fname)."'":'NULL';
@@ -69,7 +108,15 @@ class UserFunctions {
         }
     }
 
-    public function updateUser( $fname, $lname, $email, $password, $id ) {
+    /**
+    * Updates a user by id
+    *
+    * @param  string $fname, string $lname, string $email, string $password, int $id
+    * @return query result
+    * @throws Exception if the user cannot be updated
+    */
+    public function updateUser($fname, $lname, $email, $password, $id)
+    {
         try {
             $connection = $this->openDb();
             $dbFname = ($fname != NULL)?"'".$connection->real_escape_string($fname)."'":'NULL';
@@ -88,7 +135,15 @@ class UserFunctions {
         }
     }
 
-    public function deleteUser( $id ) {
+    /**
+    * Deletes user by ID
+    *
+    * @param int $id
+    * @return void
+    * @throws Exception if the user cannot be deleted
+    */
+    public function deleteUser($id)
+    {
         try {
             $connection = $this->openDb();
             $dbId = $connection->real_escape_string($id);
@@ -98,8 +153,6 @@ class UserFunctions {
             throw $e;
         }
     }
-
-
 }
 
 ?>

@@ -2,19 +2,43 @@
 
 require_once 'model/UserFunctions.php';
 
-class UsersController {
-
+class UsersController
+{
     private $userFunctions = NULL;
 
-    public function __construct() {
+    /**
+    * Contructs class UserFunctions
+    *
+    * @param  none
+    * @return void
+    * @throws none
+    */
+    public function __construct()
+    {
         $this->userFunctions = new UserFunctions();
     }
 
-    public function redirect($location) {
+    /**
+    * Redirects user to given location
+    *
+    * @param  none
+    * @return void
+    * @throws none
+    */
+    public function redirect($location)
+    {
         header('Location: '.$location);
     }
 
-    public function handleRequest() {
+    /**
+    * Interprets user request and invokes correct method
+    *
+    * @param  none
+    * @return void
+    * @throws exception if user action can't be interpreted
+    */
+    public function handleRequest()
+    {
         $op = isset($_GET['op'])?$_GET['op']:NULL;
         try {
             if ( !$op || $op == 'list' ) {
@@ -34,13 +58,28 @@ class UsersController {
         }
     }
 
-    public function listUsers() {
+    /**
+    * Lists all users in the database
+    *
+    * @param  none
+    * @return void
+    * @throws non
+    */
+    public function listUsers()
+    {
         $users = $this->userFunctions->getUsers();
         include 'view/users.php';
     }
 
-    public function addUser() {
-
+    /**
+    * Takes data from form and sends it to be added to the database
+    *
+    * @param  none
+    * @return void
+    * @throws exception if user can't be added
+    */
+    public function addUser()
+    {
         $title = 'Add new user';
 
         $fname = '';
@@ -61,15 +100,23 @@ class UsersController {
                 $this->userFunctions->createNewUser($fname, $lname, $email, $password);
                 $this->redirect('index.php');
                 return;
-            } catch (ValidationException $e) {
-                $errors = $e->getErrors();
+            } catch (Exception $e) {
+                throw $e;
             }
         }
 
         include 'view/add-user.php';
     }
 
-    public function deleteUser() {
+    /**
+    * Deletes a user from the database
+    *
+    * @param  none
+    * @return void
+    * @throws none
+    */
+    public function deleteUser()
+    {
         $id = isset($_GET['id'])?$_GET['id']:NULL;
         if ( !$id ) {
             throw new Exception('Internal error.');
@@ -80,8 +127,15 @@ class UsersController {
         $this->redirect('index.php');
     }
 
-    public function updateUser() {
-
+    /**
+    * Takes data from form and sends it to the method to update a user in the database
+    *
+    * @param  none
+    * @return void
+    * @throws exception if user can't be updated
+    */
+    public function updateUser()
+    {
         $id = isset($_GET['id'])?$_GET['id']:NULL;
         if ( !$id ) {
             throw new Exception('Internal error.');
@@ -100,7 +154,6 @@ class UsersController {
         $errors = array();
 
         if ( isset($_POST['form-submitted']) ) {
-
             $fname       = isset($_POST['fname']) ?   $_POST['fname']  :NULL;
             $lname      = isset($_POST['lname'])?   $_POST['lname'] :NULL;
             $email      = isset($_POST['email'])?   $_POST['email'] :NULL;
@@ -110,17 +163,25 @@ class UsersController {
                 $this->userFunctions->updateUser($fname, $lname, $email, $password, $id);
                 $this->redirect('index.php');
                 return;
-            } catch (ValidationException $e) {
-                $errors = $e->getErrors();
+            } catch (Exception $e) {
+                throw $e;
             }
         }
 
         include 'view/update-user.php';
     }
 
-    public function showError($title, $message) {
+    /**
+    * Shows errors in case of exceptions
+    *
+    * @param  string $title, string $message
+    * @return void
+    * @throws none
+    */
+    public function showError($title, $message)
+    {
         include 'view/error.php';
     }
-
 }
+
 ?>

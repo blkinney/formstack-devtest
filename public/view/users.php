@@ -39,15 +39,17 @@
                     <th>Email</th>
                     <th>Password</th>
                     <th>&nbsp;</th>
+                    <th>&nbsp;</th>
                 </tr>
             </thead>
             <tbody>
             <?php foreach ($users as $user): ?>
                 <tr>
-                    <td><a href="index.php?op=update&id=<?php print $user->id; ?>"><?php print htmlentities($user->fname); ?></a></td>
+                    <td><?php print htmlentities($user->fname); ?></td>
                     <td><?php print htmlentities($user->lname); ?></td>
                     <td><?php print htmlentities($user->email); ?></td>
                     <td><?php print htmlentities($user->password); ?></td>
+                    <td><a href="index.php?op=update&id=<?php print $user->id; ?>">update</a></td>
                     <td><a href="index.php?op=delete&id=<?php print $user->id; ?>">delete</a></td>
                 </tr>
             <?php endforeach; ?>

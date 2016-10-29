@@ -18,7 +18,6 @@
             <label for="fname">First Name:</label><br/>
             <input type="text" name="fname" value="<?php print htmlentities($fname) ?>"/>
             <br/>
-
             <label for="lname">Last Name:</label><br/>
             <input type="text" name="lname" value="<?php print htmlentities($lname) ?>"/>
             <br/>
@@ -26,11 +25,10 @@
             <input type="text" name="email" value="<?php print htmlentities($email) ?>" />
             <br/>
             <label for="password">Password:</label><br/>
-            <textarea name="password"><?php print htmlentities($password) ?></textarea>
+            <input type="text" name="password" value="<?php print htmlentities($password) ?>" />
             <br/>
             <input type="hidden" name="form-submitted" value="1" />
             <input type="submit" value="Submit" />
         </form>
-
     </body>
 </html>
