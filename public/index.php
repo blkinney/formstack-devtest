@@ -1,5 +1,9 @@
-<?php /** This file will server as the main point of contact for the end user. */ ?>
+<?php
 
-<h1>Ben Kinney Formstack CRUD Project</h1>
+require_once 'controller/UsersController.php';
 
-<p>Going to have a nice form here.</p>
+$controller = new UsersController();
+
+$controller->handleRequest();
+
+?>

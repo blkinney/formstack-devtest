@@ -9,20 +9,13 @@
 
 ## Getting your Environment Setup
 - Download or clone [this Git repository](https://github.com/blkinney/formstack-devtest).
-- Add the Vagrant box "precise32".
-
-    ```
-    vagrant box add precise32 http://files.vagrantup.com/precise32.box
-    ```
-
 - Start Vagrant using the Vagrantfile supplied in the repository.
 
     ```
     vagrant up
     ```
 
-- Make sure your SSH is configured to work with Github -
-    [https://help.github.com/articles/generating-an-ssh-key/](https://help.github.com/articles/generating-an-ssh-key/)
+- Access the project at http://192.168.33.10/.
 - Update your `/etc/hosts` file
 
     ```
@@ -35,8 +28,8 @@
 
 | Type           | Value                  |
 |----------------|------------------------|
-| MySQL Username | my_app                 |
-| Mysql Password | secret                 |
-| Mysql Database | my_app                 |
+| MySQL Username | root                 |
+| Mysql Password | root                 |
+| Mysql Database | scotchbox                 |
 | SSH Username   | vagrant                |
 | SSH Password   | vagrant                |
