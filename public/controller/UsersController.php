@@ -54,7 +54,6 @@ class UsersController
                 $this->showError("Page not found", "Page for operation ".$op." was not found!");
             }
         } catch ( Exception $e ) {
-            // some unknown Exception got through here, use application error page to display it
             $this->showError("Application error", $e->getMessage());
         }
     }
@@ -101,7 +100,7 @@ class UsersController
                 $this->redirect('index.php');
                 return;
             } catch (Exception $e) {
-                throw $e;
+                $this->showError("User add error", $e->getMessage());
             }
         }
 
@@ -119,7 +118,7 @@ class UsersController
     {
         $id = isset($_GET['id'])?$_GET['id']:NULL;
         if ( !$id ) {
-            throw new Exception('Internal error.');
+            throw new Exception('Could not delete user.');
         }
 
         $this->userFunctions->deleteUser($id);
@@ -138,7 +137,7 @@ class UsersController
     {
         $id = isset($_GET['id'])?$_GET['id']:NULL;
         if ( !$id ) {
-            throw new Exception('Internal error.');
+            throw new Exception('Could not update user.');
         }
 
         $user = $this->userFunctions->getUser($id);
@@ -162,7 +161,7 @@ class UsersController
                 $this->redirect('index.php');
                 return;
             } catch (Exception $e) {
-                throw $e;
+                $this->showError("Form submit error", $e->getMessage());
             }
         }
 

@@ -53,7 +53,7 @@ class UserFunctions
 
             return $users;
         } catch (Exception $e) {
-            throw $e;
+            $this->showError("Get users error", $e->getMessage());
         }
     }
 
@@ -78,7 +78,7 @@ class UserFunctions
 
             return $result;
         } catch (Exception $e) {
-            throw $e;
+            $this->showError("Get user error", $e->getMessage());
         }
     }
 
@@ -104,7 +104,7 @@ class UserFunctions
 
             return $result;
         } catch (Exception $e) {
-            throw $e;
+            $this->showError("Create user error", $e->getMessage());
         }
     }
 
@@ -131,7 +131,7 @@ class UserFunctions
 
             return $result;
         } catch (Exception $e) {
-            throw $e;
+            $this->showError("Update user error", $e->getMessage());
         }
     }
 
@@ -150,7 +150,7 @@ class UserFunctions
             $connection->query("DELETE FROM users WHERE id=$dbId");
             $this->closeDb($connection);
         } catch (Exception $e) {
-            throw $e;
+            $this->showError("Delete user error", $e->getMessage());
         }
     }
 }
