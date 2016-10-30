@@ -5,15 +5,6 @@
         <title><?php print $user->name; ?></title>
     </head>
     <body>
-        <?php
-        if ( $errors ) {
-            print '<ul class="errors">';
-            foreach ( $errors as $field => $error ) {
-                print '<li>'.htmlentities($error).'</li>';
-            }
-            print '</ul>';
-        }
-        ?>
         <form method="POST" action="">
             <label for="fname">First Name:</label><br/>
             <input type="text" name="fname" value="<?php print htmlentities($fname) ?>"/>

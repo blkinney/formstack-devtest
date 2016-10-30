@@ -86,8 +86,6 @@ class UsersController
         $email = '';
         $password = '';
 
-        $errors = array();
-
         if ( isset($_POST['form-submitted']) ) {
 
             $fname       = isset($_POST['fname']) ?   $_POST['fname']  :NULL;
@@ -147,8 +145,6 @@ class UsersController
         $email = $user->email;
         $password = $user->password;
         $id = $user->id;
-
-        $errors = array();
 
         if ( isset($_POST['form-submitted']) ) {
             $fname       = isset($_POST['fname']) ?   $_POST['fname']  :NULL;
